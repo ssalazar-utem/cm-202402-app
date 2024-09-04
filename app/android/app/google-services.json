@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1028225923343",
+    "project_id": "cm-202402",
+    "storage_bucket": "cm-202402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028225923343:android:0499407de941798c1ae67a",
+        "android_client_info": {
+          "package_name": "cl.utem.cm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4AMUg6zEPkukydtJMOFkbNj9-EYTPNhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
