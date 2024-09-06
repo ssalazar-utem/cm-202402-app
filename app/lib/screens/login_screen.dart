@@ -1,4 +1,7 @@
+import 'package:cm/screens/error_screen.dart';
+import 'package:cm/screens/home_screen.dart';
 import 'package:cm/services/google_service.dart';
+import 'package:cm/widgets/barra_app.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -10,7 +13,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Página de Login')),
+      appBar: const BarraApp(titulo: 'Página de Login'),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(100.0),
@@ -19,8 +22,16 @@ class LoginScreen extends StatelessWidget {
                 GoogleService.logIn().then((result) {
                   if (result) {
                     _logger.i('Me autentiqué super bien');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
                   } else {
                     _logger.e('Fui terrible de bueno');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const ErrorScreen();
+                    }));
                   }
                 });
               },
