@@ -1,3 +1,5 @@
+import 'package:cm/models/access.dart';
+import 'package:cm/services/rest_service.dart';
 import 'package:cm/widgets/barra_app.dart';
 import 'package:cm/widgets/menu_app.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        appBar: BarraApp(titulo: 'Inicio'),
-        drawer: MenuApp(),
-        body: Center(child: Text('Estoy dentro')));
+    return Scaffold(
+        appBar: const BarraApp(titulo: 'Inicio'),
+        drawer: const MenuApp(),
+        body: Center(
+            child: FloatingActionButton(
+                onPressed: () {
+                  Future<List<Access>> future = RestService.access();
+                  future.whenComplete(() {
+                    _logger.d("Terminé");
+                  });
+                },
+                child: const Text('Estoy dentro'))));
   }
 }
