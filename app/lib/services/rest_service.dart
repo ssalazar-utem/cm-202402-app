@@ -33,9 +33,6 @@ class RestService {
         final String responseJson = response.data ?? '';
         list = List<Access>.from(
             json.decode(responseJson).map((x) => Access.fromJson(x)));
-        for (Access a in list) {
-          _logger.i(a.requestUri);
-        }
       }
     }
     return list;

@@ -1,5 +1,5 @@
+import 'package:cm/screens/access_screen.dart';
 import 'package:cm/screens/error_screen.dart';
-import 'package:cm/screens/home_screen.dart';
 import 'package:cm/services/google_service.dart';
 import 'package:cm/widgets/barra_app.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
+                            builder: (context) => const AccessScreen()));
                   } else {
                     _logger.e('Fui terrible de bueno');
                     Navigator.push(context,
