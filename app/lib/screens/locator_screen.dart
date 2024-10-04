@@ -1,7 +1,10 @@
+import 'package:cm/utils/google_map_utils.dart';
 import 'package:cm/widgets/barra_app.dart';
 import 'package:cm/widgets/menu_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 
 class _LocatorScreenState extends State<LocatorScreen> {
@@ -41,8 +44,30 @@ class _LocatorScreenState extends State<LocatorScreen> {
                 snapshot.hasData) {
               Position? position = snapshot.data;
               if (position != null) {
-                return Center(
-                    child: Text("${position.latitude}, ${position.longitude}"));
+                return FlutterMap(
+                    options: MapOptions(
+                      initialCenter:
+                          LatLng(position.latitude, position.longitude),
+                      initialZoom: 17.0,
+                      onTap: (tapPosition, point) {
+                        GoogleMapUtils.openGoogleMap(
+                            position.latitude, position.longitude);
+                      },
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate:
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        userAgentPackageName: 'cl.utem.inf.cm',
+                      ),
+                      MarkerLayer(markers: [
+                        Marker(
+                            point:
+                                LatLng(position.latitude, position.longitude),
+                            child: const Icon(Icons.place,
+                                color: Colors.red, size: 47.0))
+                      ])
+                    ]);
               } else {
                 return const Center(
                     child: Text("No se pudo determinar la ubicación"));
@@ -52,7 +77,7 @@ class _LocatorScreenState extends State<LocatorScreen> {
                 _logger.e(snapshot.error);
               }
 
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
           }),
     );
