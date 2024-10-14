@@ -10,7 +10,7 @@ class BarraApp extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       titleTextStyle:
           const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      backgroundColor: Colors.deepOrangeAccent,
+      backgroundColor: Color(0xFF8D64AD),
       title: Text(titulo),
     );
   }
