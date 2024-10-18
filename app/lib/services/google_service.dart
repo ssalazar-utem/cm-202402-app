@@ -35,4 +35,16 @@ class GoogleService {
     }
     return ok;
   }
+
+  static Future<void> logOut() async {
+    try {
+      await _googleSignIn.signOut();
+
+      SharedPreferences current = await SharedPreferences.getInstance();
+      current.clear();
+    } catch (error, stackTrace) {
+      _logger.e("Ha ocurrido un problema al desloguear",
+          error: error, stackTrace: stackTrace);
+    }
+  }
 }

@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:camera/camera.dart';
 import 'package:cm/widgets/barra_app.dart';
 import 'package:cm/widgets/menu_app.dart';
 import 'package:flutter/material.dart';
+import 'package:gal/gal.dart';
 import 'package:logger/logger.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class _CameraScreenState extends State<CameraScreen> {
   static final Logger _logger = Logger();
@@ -12,6 +16,11 @@ class _CameraScreenState extends State<CameraScreen> {
   late CameraDescription miCamara;
 
   Future<void>? _inicializadorControllador;
+
+  Future<void> _solicitarPermisos() async {
+    await Permission.camera.request();
+    await Permission.storage.request();
+  }
 
   Future<void> inicializarCamaras() async {
     try {
@@ -33,6 +42,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
+    _solicitarPermisos();
     inicializarCamaras();
   }
 
@@ -46,6 +56,7 @@ class _CameraScreenState extends State<CameraScreen> {
     try {
       await _inicializadorControllador;
       XFile foto = await _controlador.takePicture();
+      await Gal.putImage(foto.path);
     } catch (error) {
       _logger.e("Error al tomar foto", error: error);
     }
